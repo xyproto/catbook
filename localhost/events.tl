@@ -4,9 +4,9 @@ local events = List("catbook:events")
 if methodPOST() then
   local fields: {string:string} = formdata()
   local username: string = Username()
-  local title: string = maxlen(sanhtml(fields["title"] or ""), 200)
-  local when: string = maxlen(sanhtml(fields["when"] or ""), 100)
-  local where: string = maxlen(sanhtml(fields["where"] or ""), 200)
+  local title: string = maxlen(fields["title"] or "", 200)
+  local when: string = maxlen(fields["when"] or "", 100)
+  local where: string = maxlen(fields["where"] or "", 200)
 
   if username == "" or not IsLoggedIn(username) then
     print(json({error = "Not logged in"}))

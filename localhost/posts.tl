@@ -4,7 +4,7 @@ local messages = List("catbook:messages")
 if methodPOST() then
   local fields: {string:string} = formdata()
   local username: string = Username()
-  local text: string = maxlen(sanhtml(fields["message"] or ""), 500)
+  local text: string = maxlen(fields["message"] or "", 500)
 
   if username == "" or not IsLoggedIn(username) then
     print(json({error = "Not logged in"}))
