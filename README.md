@@ -2,7 +2,11 @@
 
 An example application for Algernon, using Teal, React 19 and Just.
 
+### Screenshot
+
 ![cat events](img/events.png)
+
+### Try it out
 
 Try it out by having the latest (development / main) version of Algernon installed, as well as `just` and then just run:
 
