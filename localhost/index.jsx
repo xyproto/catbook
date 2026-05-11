@@ -61,7 +61,7 @@ function Feed() {
   );
 }
 
-function Events() {
+function Events({ user }) {
   const [events, setEvents] = React.useState([]);
   const [title, setTitle] = React.useState("");
   const [when, setWhen] = React.useState("");
@@ -78,6 +78,13 @@ function Events() {
     if (!title.trim()) return;
     postForm("events.tl", {title, when, where}).then((d) => {
       if (d.ok) { setTitle(""); setWhen(""); setWhere(""); setAdding(false); load(); }
+    });
+  }
+
+  function deleteEvent(ev) {
+    if (!confirm("Delete this event?")) return;
+    postForm("delevt.tl", {time: ev.time}).then((d) => {
+      if (d.ok) load();
     });
   }
 
@@ -99,10 +106,15 @@ function Events() {
       )}
       <div>
         {events.map((ev, i) => (
-          <div key={i} style={{background:"#fff",padding:"0.8em",borderRadius:"6px",marginBottom:"0.5em",boxShadow:"0 1px 3px rgba(0,0,0,0.08)"}}>
-            <strong>{ev.title}</strong> <span style={{color:"#999",fontSize:"0.8em"}}>by {ev.user}</span>
-            {ev.when && <p style={{margin:"0.2em 0 0",fontSize:"0.9em"}}>🕐 {ev.when}</p>}
-            {ev.where && <p style={{margin:"0.2em 0 0",fontSize:"0.9em"}}>📍 {ev.where}</p>}
+          <div key={i} style={{background:"#fff",padding:"0.8em",borderRadius:"6px",marginBottom:"0.5em",boxShadow:"0 1px 3px rgba(0,0,0,0.08)",display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+            <div>
+              <strong>{ev.title}</strong> <span style={{color:"#999",fontSize:"0.8em"}}>by {ev.user}</span>
+              {ev.when && <p style={{margin:"0.2em 0 0",fontSize:"0.9em"}}>🕐 {ev.when}</p>}
+              {ev.where && <p style={{margin:"0.2em 0 0",fontSize:"0.9em"}}>📍 {ev.where}</p>}
+            </div>
+            {user === "admin" && (
+              <button onClick={() => deleteEvent(ev)} style={{width:"auto",padding:"0.3em 0.6em",fontSize:"0.8em",background:"#c00",color:"#fff",border:"none",borderRadius:"4px",cursor:"pointer"}}>✕</button>
+            )}
           </div>
         ))}
         {events.length === 0 && <p style={{color:"#999"}}>No events yet. Plan a cat meetup!</p>}
@@ -313,7 +325,7 @@ function App() {
       <Nav page={page} setPage={setPage} user={user} onLogout={doLogout} />
       <div style={{maxWidth:"600px",margin:"1.5em auto",padding:"0 1em"}}>
         {page === "feed" && <Feed />}
-        {page === "events" && <Events />}
+        {page === "events" && <Events user={user} />}
         {page === "profile" && <Profile user={user} profile={profile} onUpdate={setProfile} />}
         {page === "admin" && <Admin />}
       </div>

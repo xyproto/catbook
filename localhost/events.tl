@@ -1,5 +1,6 @@
 -- Create an event or list upcoming events
 local events = List("catbook:events")
+local deleted = HashMap("catbook:events:deleted")
 
 if methodPOST() then
   local fields: {string:string} = formdata()
@@ -27,5 +28,13 @@ if methodPOST() then
   events:add(entry)
   print(json({ok = true}))
 else
-  print(events:jsonlast(50))
+  local all: {string} = events:getlastn(50)
+  local result: {string} = {}
+  for _, raw in ipairs(all) do
+    local t: string = raw:match('"time"%s*:%s*"([^"]+)"') or ""
+    if t == "" or deleted:get(t, "deleted") ~= "true" then
+      result[#result + 1] = raw
+    end
+  end
+  print("[" .. table.concat(result, ",") .. "]")
 end
