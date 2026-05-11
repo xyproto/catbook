@@ -27,5 +27,5 @@ Note that this is meant to be an example application for Algernon and a start th
 
 ### General info
 
-* Version: 0.0.2
+* Version: 0.0.3
 * License: MIT
