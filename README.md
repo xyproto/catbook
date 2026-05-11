@@ -10,7 +10,7 @@ Try it out by having the latest (development / main) version of Algernon install
 
 Or, if you don't want to install and use `just`, just run:
 
-     algernon -n --domain -t -a :8080
+     algernon -n --domain -t -a :8080 .
 
 And then open http://localhost:8080 in a browser.
 
