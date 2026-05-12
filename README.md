@@ -2,10 +2,6 @@
 
 An example application for Algernon, using Teal, React 19 and Just.
 
-### Screenshot
-
-![cat events](img/events.png)
-
 ### Try it out
 
 Try it out by having the latest (development / main) version of Algernon installed, as well as `just` and then just run:
@@ -24,6 +20,10 @@ Then, for example:
 * Register a user named `admin` and log in with that user to get access to the "backstage" area, where you can see all registered users.
 
 Note that this is meant to be an example application for Algernon and a start that can be built upon, and not a full and feature complete web application.
+
+### Screenshot
+
+![cat events](img/events.png)
 
 ### General info
 
